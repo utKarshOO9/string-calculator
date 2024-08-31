@@ -33,6 +33,9 @@ def add(numbers: str) -> int:
             negative_number.append(i)
             continue
 
+        if int_val > 1000:
+            continue
+
         result += int_val
 
     if len(negative_number) > 0:

@@ -15,6 +15,9 @@ def generate_data_with_two_delimiter(n: int) -> tuple[str, int]:
         dl = random.choice(["\n", ","])
         number = random.randint(1, 10000)
         data += str(number) + dl
+        # update data generator
+        if number > 1000:
+            continue
         sum_val += number
         n -= 1
     return data, sum_val
@@ -32,6 +35,9 @@ def generate_data_with_custom_delimiter(n: int, delimiter: str) -> tuple[str, in
     while n > 0:
         number = random.randint(1, 10000)
         data += str(number) + delimiter
+        # update data generator
+        if number > 1000:
+            continue
         sum_val += number
         n -= 1
     data = prefix + data
@@ -165,7 +171,7 @@ class TestCalculator:
             ),
             (
                 "addition-throw-error-on-multiple-negative-number-with-custom-delimiter",
-                "//;\n1,-2,-3",
+                "//;\n1;-2;-3",
                 "negatives not allowed: numbers(-2,-3)",
             ),
         ],
@@ -180,3 +186,28 @@ class TestCalculator:
             result = calculator.add(param)
             assert result is None
         assert str(exp.value) == error_msg
+
+    @pytest.mark.parametrize(
+        "_desc,param,output",
+        [
+            ("addition-gt1000-sum-all-lt1000", "1000,1001,3", 1003),
+            ("addition-all-number-gt1000-should-0", "1001,1001,1001", 0),
+            (
+                "addition-gt1000-sum-all-value-10-integer",
+                "1,2,3,4000,2000,5,10000,8000,79999,1233243",
+                11
+            ),
+            (
+                "addition-throw-error-on-multiple-negative-number-with-custom-delimiter",
+                "//;\n1;2;3;9080;1",
+                7,
+            ),
+        ],
+    )
+    def test_addition_gt1000(self, _desc: str, param: str, output: int):
+        """
+        addition of number greater than 1000 should not be included in sum
+        """
+        logger.info(f"Running test case for {_desc}")
+        result = calculator.add(param)
+        assert result == output

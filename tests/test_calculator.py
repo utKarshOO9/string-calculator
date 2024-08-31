@@ -144,3 +144,18 @@ class TestCalculator:
         assert isinstance(result, int)
         assert result == sum_val
 
+    @pytest.mark.parametrize("_desc,param,error_msg", [
+        ("addition-throw-error-on-negative-integer-1", "1,-2,3", "negatives not allowed: numbers(-2)"),
+        ("addition-throw-error-on-multiple-negative-number", "1,-2,-3", "negatives not allowed: numbers(-2,-3)"),
+    ])
+    def test_addition_through_error_with_negative_number(self, _desc: str, param: str, error_msg: str):
+        """
+            add should not accept
+            negative number should throw error
+        """
+        logger.info(f"Running test case for {_desc}")
+        with pytest.raises(NegativeNumberError) as exp:
+            result = calculator.add(param)
+            assert result is None
+        assert str(exp.value) == error_msg
+

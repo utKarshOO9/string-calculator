@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "string-calculator"
+version = "0.1.0"
+description = ""
+authors = ["utKarsh009 <utkarshsrivastava994@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.3.2"
+pytest-cov = "^5.0.0"
+ruff = "^0.6.3"
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+select = ["E", "F", "C"]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

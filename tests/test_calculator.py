@@ -58,6 +58,20 @@ class TestCalculator:
         result = calculator.add(param)
         assert isinstance(result, int)
         assert result == output
-
     
-        
+    @pytest.mark.parametrize("_desc,param,output", [
+        ("addition-accept-\\n-delimiter", "1\n2", 3),
+        ("addition-accept-\\n-and-,-both-delimiter", "1\n2,3", 6),
+        ("addition-accept-\\n-and-,-both-delimiter-with-multiple-inputs", "1\n2,3", 6),
+        ("addition-accept-\\n-and-,-both-delimiter-with-n-inputs", "1\n2,3\n4", 10),
+    ])
+    def test_addition_can_accept_two_delimiters(self, _desc: str, param: str, output: int):
+        """
+            add should accept
+            `\n` and `,` values to perform addition 
+            on string of numbers
+        """
+        logger.info(f"Running test case for {_desc}")
+        result = calculator.add(param)
+        assert isinstance(result, int)
+        assert result == output    

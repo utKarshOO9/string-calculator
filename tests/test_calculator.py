@@ -1,5 +1,11 @@
 import inspect
 from string_calculator import calculator
+import pytest
+import logging
+
+
+logger = logging.getLogger(__file__)
+
 
 class TestCalculator:
     
@@ -21,13 +27,19 @@ class TestCalculator:
         assert  issubclass(args_details.annotations['numbers'], str)
         assert  issubclass(args_details.annotations['return'], int)
 
-    def test_add_for_empty_string(self):
+    @pytest.mark.parametrize("_desc,param,output", [
+        ("empty-string-without-spaces", "", 0),
+        ("empty-string-with-spaces", " ", 0)
+    ])
+    def test_add_for_empty_string(self, _desc: str, param: str, output: int):
         """
             add method should accept empty string ""
             1. If empty string should return as 0
         """
-        result = calculator.add("")
+        logger.info(f"Running test case for {_desc}")
+        result = calculator.add(param)
         assert isinstance(result, int)
-        assert result == 0
+        assert result == output
+
     
         

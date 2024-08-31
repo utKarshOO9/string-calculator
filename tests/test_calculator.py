@@ -45,7 +45,7 @@ class TestCalculator:
 
     @pytest.mark.parametrize("_desc,param,output", [
         ("check-for-single-integer-as-comma-separated-value", "1", 1),
-        ("check-for-two-integer-as-comma-separated-value", "1,2", 3),
+        ("check-for-two-integer-as-comma-separated-value", "1,5", 6),
         ("check-for-multiple-integer-as-comma-separated-value-1", "1,2,3,4", 10),
         ("check-for-multiple-integer-as-comma-separated-value-2", "100,200,3,4", 307),
         ("check-for-multiple-integer-with-empty-as-comma-separated-value", "1,200,3,,4", 208),

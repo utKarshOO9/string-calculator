@@ -1,3 +1,3 @@
 
-def add():
+def add(numbers: str) -> int:
     pass

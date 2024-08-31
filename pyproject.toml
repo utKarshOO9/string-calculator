@@ -15,7 +15,7 @@ ruff = "^0.6.3"
 [tool.ruff]
 line-length = 120
 target-version = "py312"
-select = ["E", "F", "C"]
+lint.select = ["E", "F", "C"]
 
 
 [build-system]

@@ -20,3 +20,14 @@ class TestCalculator:
         assert 'numbers' in args_details.args
         assert  issubclass(args_details.annotations['numbers'], str)
         assert  issubclass(args_details.annotations['return'], int)
+
+    def test_add_for_empty_string(self):
+        """
+            add method should accept empty string ""
+            1. If empty string should return as 0
+        """
+        result = calculator.add("")
+        assert isinstance(result, int)
+        assert result == 0
+    
+        

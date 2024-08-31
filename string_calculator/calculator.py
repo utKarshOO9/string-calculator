@@ -1,3 +1,4 @@
 
 def add(numbers: str) -> int:
-    pass
+    if numbers.strip() == "":
+        return 0

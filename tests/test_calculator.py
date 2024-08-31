@@ -13,6 +13,7 @@ class TestCalculator:
         """
             test to check if calculator has add function or not
         """
+        logger.info("Running test case for method check in module")
         assert hasattr(calculator, 'add')
 
     def test_add_signature(self):
@@ -21,6 +22,7 @@ class TestCalculator:
             1. Only one parameter numbers of type string
             2. It returns data of type integer
         """
+        logger.info("Running test case for add method signature")
         args_details = inspect.getfullargspec(calculator.add)
         assert len(args_details.args) == 1
         assert 'numbers' in args_details.args

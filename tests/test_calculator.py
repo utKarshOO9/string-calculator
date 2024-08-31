@@ -2,10 +2,26 @@ import inspect
 from string_calculator import calculator
 import pytest
 import logging
+import random
 
 
 logger = logging.getLogger(__file__)
 
+
+def generate_data_with_two_delimiter(n: int) -> tuple[str, int]:
+    data = ""
+    sum_val = 0
+    while n > 0:
+        dl = random.choice(["\n", ","])
+        number = random.randint(1, 10000)
+        data +=  str(number) + dl
+        sum_val += number
+        n -= 1
+    return data, sum_val
+
+generate_with_10_integers = generate_data_with_two_delimiter(10)
+generate_with_20_integers = generate_data_with_two_delimiter(20)
+generate_with_100_integers = generate_data_with_two_delimiter(100)
 
 class TestCalculator:
     
@@ -58,6 +74,35 @@ class TestCalculator:
         result = calculator.add(param)
         assert isinstance(result, int)
         assert result == output
-
     
-        
+    @pytest.mark.parametrize("_desc,param,output", [
+        ("addition-accept-\\n-delimiter", "\n,", 0),
+        ("addition-accept-\\n-delimiter", "1\n2", 3),
+        ("addition-accept-\\n-and-,-both-delimiter", "1\n2,3", 6),
+        ("addition-accept-\\n-and-,-both-delimiter-with-multiple-inputs", "1\n2,3", 6),
+        (
+            "addition-accept-\\n-and-,-both-delimiter-with-10-integer", 
+            generate_with_10_integers[0], 
+            generate_with_10_integers[1]
+        ),
+        (
+            "addition-accept-\\n-and-,-both-delimiter-with-20-integer", 
+            generate_with_20_integers[0], 
+            generate_with_20_integers[1]
+        ),
+        (
+            "addition-accept-\\n-and-,-both-delimiter-with-100-integer", 
+            generate_with_100_integers[0], 
+            generate_with_100_integers[1]
+        ),
+    ])
+    def test_addition_can_accept_two_delimiters(self, _desc: str, param: str, output: int):
+        """
+            add should accept
+            `\n` and `,` values to perform addition 
+            on string of numbers
+        """
+        logger.info(f"Running test case for {_desc}")
+        result = calculator.add(param)
+        assert isinstance(result, int)
+        assert result == output    

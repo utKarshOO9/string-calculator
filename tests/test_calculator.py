@@ -1,6 +1,9 @@
-
+from string_calculator import calculator
 
 class TestCalculator:
-
-    def test_project_setup(self):
-        assert 1 == 1
+    
+    def test_module_has_add_method(self):
+        """
+            test to check if calculator has add function or not
+        """
+        assert hasattr(calculator, 'add')

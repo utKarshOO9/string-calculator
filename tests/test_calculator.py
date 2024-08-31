@@ -43,5 +43,21 @@ class TestCalculator:
         assert isinstance(result, int)
         assert result == output
 
+    @pytest.mark.parametrize("_desc,param,output", [
+        ("check-for-single-integer-as-comma-separated-value", "1", 1),
+        ("check-for-two-integer-as-comma-separated-value", "1,2", 3),
+        ("check-for-multiple-integer-as-comma-separated-value-1", "1,2,3,4", 10),
+        ("check-for-multiple-integer-as-comma-separated-value-2", "100,200,3,4", 307),
+        ("check-for-multiple-integer-with-empty-as-comma-separated-value", "1,200,3,,4", 208),
+    ])
+    def test_add_for_comma_separated_string(self, _desc: str, param: str, output: int):
+        """
+            add method should accept empty string should accept comma separated value
+        """
+        logger.info(f"Running test case for {_desc}")
+        result = calculator.add(param)
+        assert isinstance(result, int)
+        assert result == output
+
     
         

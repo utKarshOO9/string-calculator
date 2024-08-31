@@ -23,6 +23,19 @@ generate_with_10_integers = generate_data_with_two_delimiter(10)
 generate_with_20_integers = generate_data_with_two_delimiter(20)
 generate_with_100_integers = generate_data_with_two_delimiter(100)
 
+def generate_data_with_custom_delimiter(n: int, delimiter: str) -> tuple[str, int]:
+    data = ""
+    sum_val = 0
+    prefix = f"//{delimiter}\n"
+    while n > 0:
+        number = random.randint(1, 10000)
+        data +=  str(number) + delimiter
+        sum_val += number
+        n -= 1
+    data = prefix + data
+    return data, sum_val
+
+
 class TestCalculator:
     
     def test_module_has_add_method(self):
@@ -106,3 +119,28 @@ class TestCalculator:
         result = calculator.add(param)
         assert isinstance(result, int)
         assert result == output    
+
+    @pytest.mark.parametrize("_desc,n,delimiter", [
+        ("addition-custom-delimiter-;-1-integer", 1, ";"),
+        ("addition-custom-delimiter-*-2-integer", 2, "*"),
+        ("addition-custom-delimiter-|-10-integer", 10, "|"),
+        ("addition-custom-delimiter-$-20-integer", 20, "$"),
+        ("addition-as-without-delimiter-20-integer", 20, ""),
+    ])
+    def test_addition_can_accept_custom_delimiter(self, _desc: str, n: int, delimiter: str):
+        """
+            add should accept
+            custom any delimiter to perform addition 
+            on string of numbers
+        """
+        logger.info(f"Running test case for {_desc}")
+        data, sum_val = "", 0
+        if delimiter != "":
+            data, sum_val = generate_data_with_custom_delimiter(n, delimiter)
+        else:
+            data, sum_val = generate_data_with_two_delimiter(n)
+        
+        result = calculator.add(data)
+        assert isinstance(result, int)
+        assert result == sum_val
+

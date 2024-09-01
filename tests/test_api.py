@@ -58,3 +58,21 @@ class TestCalculatorApi:
         response = client.post("/calculator", json=payload)
         assert response.status_code == 200
         assert response.json() == expected
+
+    
+    @pytest.mark.parametrize("_desc,numbers,output,error_msg", [
+        ("api-should-not-accept-negative-number", "1,-2,3", None, "negatives not allowed: numbers(-2)"),
+        ("api-should-not-accept-negative-number-newline", "1,-2\n-3", None, "negatives not allowed: numbers(-2,-3)"),
+    ])
+    def test_calculator_api_error_validation(self, _desc, numbers, output, error_msg):
+        logger.info(f"Running test case {_desc}")
+        client = TestClient(main.api)
+        payload = {"numbers": numbers}
+        expected = {
+                        "input": numbers,
+                        "output": output,
+                        "errors": [error_msg]
+                    }
+        response = client.post("/calculator", json=payload)
+        assert response.status_code == 200
+        assert response.json() == expected

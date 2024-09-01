@@ -29,3 +29,11 @@ class TestCliApp:
             result = runner.invoke(app.main, ["--numbers", ""])
             assert result.exit_code == 0
             assert result.output.strip() == "\n".join(build_text_format("", 0))
+    
+
+    def test_cli_app_accepts_number_parameters_with_delimited_numbers(self):
+        runner = CliRunner()
+        with runner.isolation():
+            result = runner.invoke(app.main, ["--numbers", "1,2"])
+            assert result.exit_code == 0
+            assert result.output.strip() == "\n".join(build_text_format("1,2", 3))

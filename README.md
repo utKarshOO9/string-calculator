@@ -25,9 +25,18 @@ Features
 - [x] Allow multiple delimiters with length longer than one char
 
 
+Upcoming Feature
+- [ ] Distribute as CLI Application
+
+Scope:
+    * Accept string of numbers as parameter number
+    * Terminal output as 
+        Input String: "1,2"
+        Output: 3
+
+
 TODO:
 
-- [ ] Distribute as CLI Application
 - [ ] Build API interface
 
 

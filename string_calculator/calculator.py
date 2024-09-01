@@ -45,5 +45,5 @@ def add(numbers: str) -> int:
     if len(negative_number) > 0:
         raise NegativeNumberError(f"negatives not allowed: numbers({','.join(negative_number)})")
 
-    logger.info(f"addition for numbers: {numbers} result: {result}")
+    logger.debug(f"addition for numbers: {numbers} result: {result}")
     return result

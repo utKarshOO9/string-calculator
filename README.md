@@ -23,16 +23,7 @@ Features
 - [x] Delimiters can be of any length with the following format: `//[delimiter]\n` ex: `//[&&&]\n` `//[|||]\n` `//[PPP]\n` 
 - [x] Allow multiple delimiters like this `//[delim1][delim2]\n` ex: `//[;][**]\n`
 - [x] Allow multiple delimiters with length longer than one char
-
-
-Upcoming Feature
-- [ ] Distribute as CLI Application
-
-Scope:
-    * Accept string of numbers as parameter number
-    * Terminal output as 
-        Input String: "1,2"
-        Output: 3
+- [x] CLI Application to run calculator for getting output
 
 
 TODO:

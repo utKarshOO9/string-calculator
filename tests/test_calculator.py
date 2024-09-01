@@ -263,3 +263,32 @@ class TestCalculator:
         result = calculator.add(data)
         assert isinstance(result, int)
         assert result == sum_val
+
+    @pytest.mark.parametrize(
+        "_desc,n,delimiter",
+        [
+            ("addition-custom-delimiter-[;;][**][()()]-1-integer", 1, "[;;][**][()()]"),
+            ("addition-custom-delimiter-[__][***][UUUU]-1-integer", 0, "[__][***][UUUU]"),
+            ("addition-custom-delimiter-[__][***][^^][FF]-2-integer", 2, "[__][***][^^][FF]"),
+            ("addition-custom-delimiter-[!!][|][#][&&]-10-integer", 1000, "[!!][|][#][&&]"),
+            ("addition-custom-delimiter-[@@][$][;][PP][^^][&&]-20-integer", 100, "[@@][$][;][PP][^^][&&]"),
+            ("addition-as-without-delimiter-20-integer", 20, ""),
+        ],
+    )
+    def test_addition_with_multi_custom_delimiter_of_multi_length(self, _desc: str, n: int, delimiter: str):
+        """
+        add should accept
+        multiple delimiter with single characters
+        ex: //[;;][**]\n
+        on string of numbers
+        """
+        logger.info(f"Running test case for {_desc}")
+        data, sum_val = "", 0
+        if delimiter != "":
+            data, sum_val = generate_data_with_custom_delimiter(n, delimiter)
+        else:
+            data, sum_val = generate_data_with_two_delimiter(n)
+
+        result = calculator.add(data)
+        assert isinstance(result, int)
+        assert result == sum_val

@@ -24,11 +24,7 @@ Features
 - [x] Allow multiple delimiters like this `//[delim1][delim2]\n` ex: `//[;][**]\n`
 - [x] Allow multiple delimiters with length longer than one char
 - [x] CLI Application to run calculator for getting output
-
-
-Upcoming Feature:
-
-- [ ] Enable Api Interface for calculator
+- [x] Enable Api Interface for calculator
     
     Scope
     

@@ -26,9 +26,33 @@ Features
 - [x] CLI Application to run calculator for getting output
 
 
-TODO:
+Upcoming Feature:
 
-- [ ] Build API interface
+- [ ] Enable Api Interface for calculator
+    
+    Scope
+    
+    - Create Api over calculator
+    - Able to take numbers as string as payload
+    - Return Json Response 
+        ```json
+            {
+                "input": "1,2",
+                "output": 3,
+                "errors": []
+            }
+        ```
+
+        ```json
+            {
+                "input": "1,-2",
+                "output": None
+                "errors": [
+                    "negatives not allowed: numbers(-2)"
+                ]
+            }
+        ```
+
 
 
 

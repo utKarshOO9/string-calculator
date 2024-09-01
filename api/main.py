@@ -7,5 +7,10 @@ api = FastAPI()
 
 @api.post("/calculator", response_model=CalculatorResponse)
 async def calculator(req: CalculatorRequest):
-    result = calc.add(req.numbers)
-    return CalculatorResponse(input=req.numbers, output=result, errors=[])
+    errors = []
+    result = None
+    try:
+        result = calc.add(req.numbers)
+    except calc.NegativeNumberError as e:
+        errors.append(str(e))
+    return CalculatorResponse(input=req.numbers, output=result, errors=errors)

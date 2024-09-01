@@ -1,6 +1,6 @@
 import re
 
-DELIMITER_REGEX = re.compile(r"(//\S\n)")
+DELIMITER_REGEX = re.compile(r"//(\[)?\S+(\])?\n")
 
 
 class NegativeNumberError(Exception):
@@ -16,7 +16,7 @@ def add(numbers: str) -> int:
 
     if match is not None:
         numbers = DELIMITER_REGEX.sub("", numbers)
-        delimiter = match.group(1).replace("//", "").strip()
+        delimiter = match.group().replace("//", "").strip()
 
     result = 0
     numbers = numbers.replace(delimiter, ",")

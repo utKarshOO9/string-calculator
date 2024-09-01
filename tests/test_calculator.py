@@ -192,11 +192,7 @@ class TestCalculator:
         [
             ("addition-gt1000-sum-all-lt1000", "1000,1001,3", 1003),
             ("addition-all-number-gt1000-should-0", "1001,1001,1001", 0),
-            (
-                "addition-gt1000-sum-all-value-10-integer",
-                "1,2,3,4000,2000,5,10000,8000,79999,1233243",
-                11
-            ),
+            ("addition-gt1000-sum-all-value-10-integer", "1,2,3,4000,2000,5,10000,8000,79999,1233243", 11),
             (
                 "addition-throw-error-on-multiple-negative-number-with-custom-delimiter",
                 "//;\n1;2;3;9080;1",
@@ -211,3 +207,30 @@ class TestCalculator:
         logger.info(f"Running test case for {_desc}")
         result = calculator.add(param)
         assert result == output
+
+    @pytest.mark.parametrize(
+        "_desc,n,delimiter",
+        [
+            ("addition-custom-delimiter-;-1-integer", 1, "[;;]"),
+            ("addition-custom-delimiter-*-2-integer", 2, "[**]"),
+            ("addition-custom-delimiter-|-10-integer", 10, "[||]"),
+            ("addition-custom-delimiter-$-20-integer", 20, "[$$$]"),
+            ("addition-as-without-delimiter-20-integer", 20, ""),
+        ],
+    )
+    def test_addition_can_accept_custom_delimiter_with_multiple_length(self, _desc: str, n: int, delimiter: str):
+        """
+        add should accept
+        custom any delimiter to perform addition
+        on string of numbers
+        """
+        logger.info(f"Running test case for {_desc}")
+        data, sum_val = "", 0
+        if delimiter != "":
+            data, sum_val = generate_data_with_custom_delimiter(n, delimiter)
+        else:
+            data, sum_val = generate_data_with_two_delimiter(n)
+
+        result = calculator.add(data)
+        assert isinstance(result, int)
+        assert result == sum_val

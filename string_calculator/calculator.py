@@ -1,7 +1,9 @@
+import logging
 import re
 
 DELIMITER_REGEX = re.compile(r"//(\[)?\S+(\])?\n")
 
+logger = logging.getLogger(__file__)
 
 class NegativeNumberError(Exception):
     pass
@@ -17,6 +19,8 @@ def add(numbers: str) -> int:
     if match is not None:
         numbers = DELIMITER_REGEX.sub("", numbers)
         delimiter = match.group().replace("//", "").strip()
+        logger.info(f"delimiter identified as : {delimiter}")
+
 
     result = 0
     numbers = numbers.replace(delimiter, ",")
@@ -41,4 +45,5 @@ def add(numbers: str) -> int:
     if len(negative_number) > 0:
         raise NegativeNumberError(f"negatives not allowed: numbers({','.join(negative_number)})")
 
+    logger.info(f"addition for numbers: {numbers} result: {result}")
     return result

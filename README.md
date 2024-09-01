@@ -50,5 +50,9 @@ Features
         ```
 
 
+**Deployment Process**
 
-
+```
+cmd\> docker build -t string-calculator .
+cmd\> docker run --name string-calculator -p 8000:8000 string-calculator-app
+```
